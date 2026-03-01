@@ -44,10 +44,8 @@ async function deleteChat(id: string) {
         <!-- Sidebar header -->
         <div class="flex items-center justify-between px-3 py-3 h-[52px]">
           <NuxtLink to="/chat" class="flex items-center gap-1.5 font-bold text-[15px] text-gray-900 dark:text-white">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-primary shrink-0">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Chat
+            <UIcon name="i-lucide-bot" class="w-5 h-5 text-primary-500 shrink-0" />
+            <span>Chat<span class="text-primary-500">Rigel</span></span>
           </NuxtLink>
           <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-200/70 dark:hover:bg-white/10 transition-colors">
             <UIcon name="i-lucide-search" class="w-4 h-4" />
