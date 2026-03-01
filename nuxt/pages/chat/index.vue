@@ -67,13 +67,13 @@ function onKeydown(e: KeyboardEvent) {
 
     <!-- Input box (matches reference exactly) -->
     <div class="w-full max-w-[720px] flex flex-col gap-4">
-      <div class="rounded-xl border border-gray-200 dark:border-white/15 bg-white dark:bg-[#27272a] overflow-hidden shadow-xs">
+      <div class="rounded-[20px] ring-1 ring-inset ring-gray-200 dark:ring-gray-800 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-900 focus-within:bg-white focus-within:dark:bg-gray-900 focus-within:ring-2 focus-within:ring-primary-500 dark:focus-within:ring-primary-400 transition-all shadow-sm">
         
         <!-- Context files preview display -->
-        <div v-if="selectedFiles.length > 0" class="flex flex-wrap gap-2 px-4 pt-4 pb-2 border-b border-gray-100 dark:border-white/10">
-          <div v-for="(file, index) in selectedFiles" :key="index" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 max-w-[200px]">
-            <UIcon name="i-lucide-file-text" class="w-3.5 h-3.5 text-gray-400 shrink-0" />
-            <span class="text-xs truncate text-gray-600 dark:text-gray-300">{{ file.name }}</span>
+        <div v-if="selectedFiles.length > 0" class="flex flex-wrap gap-2 px-4 pt-3 pb-1">
+          <div v-for="(file, index) in selectedFiles" :key="index" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 max-w-[200px]">
+            <UIcon name="i-lucide-file-text" class="w-3.5 h-3.5 text-gray-500 shrink-0" />
+            <span class="text-xs truncate text-gray-700 dark:text-gray-300">{{ file.name }}</span>
             <button type="button" @click="removeFile(index)" class="shrink-0 p-0.5 mt-0.5 rounded text-gray-400 hover:text-red-500 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
               <UIcon name="i-lucide-x" class="w-3.5 h-3.5" />
             </button>
@@ -85,15 +85,15 @@ function onKeydown(e: KeyboardEvent) {
           v-model="input"
           rows="2"
           placeholder="Type your message here..."
-          class="w-full px-4 pt-3 pb-1 text-sm text-gray-900 dark:text-white bg-transparent resize-none outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 leading-relaxed"
+          class="w-full px-4 pt-4 pb-2 text-[15px] text-gray-900 dark:text-white bg-transparent resize-none outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 leading-relaxed"
           :disabled="loading"
           @keydown="onKeydown"
         />
         <!-- Toolbar row -->
-        <div class="flex items-center gap-2 px-3 py-2 border-t border-gray-100 dark:border-white/10">
+        <div class="flex items-center gap-2 px-3 pb-3 pt-1">
           <!-- Paperclip -->
           <input type="file" multiple ref="fileInput" class="hidden" @change="handleFileChange" />
-          <button @click="fileInput?.click()" class="w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+          <button @click="fileInput?.click()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
             <UIcon name="i-lucide-paperclip" class="w-4 h-4" />
           </button>
           <!-- Model selector -->
@@ -101,19 +101,18 @@ function onKeydown(e: KeyboardEvent) {
             :items="models.map(m => ({ label: m.label, icon: m.icon, click: () => selectedModel = m }))"
             :content="{ side: 'top', align: 'start' }"
           >
-            <button class="flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-              <UIcon :name="selectedModel.icon" class="w-3.5 h-3.5" />
+            <button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+              <UIcon :name="selectedModel.icon" class="w-4 h-4" />
               {{ selectedModel.label }}
-              <UIcon name="i-lucide-chevron-down" class="w-3 h-3 opacity-60" />
+              <UIcon name="i-lucide-chevron-down" class="w-3.5 h-3.5 opacity-60" />
             </button>
           </UDropdownMenu>
           <div class="flex-1" />
-          <!-- Send button -->
           <button
-            class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+            class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors shadow-sm"
             :class="(input.trim() || selectedFiles.length > 0) && !loading
-              ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-100'
-              : 'bg-gray-200 dark:bg-white/20 text-gray-400 cursor-not-allowed'"
+              ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-white'
+              : 'bg-gray-100 dark:bg-white/10 text-gray-400 cursor-not-allowed'"
             :disabled="(!input.trim() && selectedFiles.length === 0) || loading"
             @click="startChat()"
           >
