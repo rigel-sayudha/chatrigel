@@ -12,6 +12,7 @@ A modern, full-stack AI chatbot implementation integrated tightly into a solid L
 - **Auto-Generate Titles**: Automatically summarizes your very first chat prompt contextual message into a brief session label dynamically upon first prompt.
 - **Model Selection Mechanism**: Toggle among industry-leading Models natively via the UI Dropdown (GPT-4o, Claude 3.5 Haiku, Gemini 2.0 Flash) without losing the session context.
 - **Multi-File Context Attachments**: Effortlessly upload multiple file constraints through the paperclip interface for multimodal prompting.
+- **Nuxt UI Template Aesthetics**: The application seamlessly mimics the official Nuxt UI Chat layout, including the sleek subtle input box, model selection toggles, animated prompt chips, and a perfectly aligned sidebar brand title.
 
 ## 🚀 Getting Started
 
