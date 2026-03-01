@@ -15,11 +15,11 @@ const models = [
 const selectedModel = ref(models[0])
 
 const suggestions = [
-  { icon: 'i-simple-icons-nuxtdotjs', label: 'Why use Nuxt UI?', prompt: 'Why should I use Nuxt UI for my project?' },
-  { icon: 'i-simple-icons-vuedotjs', label: 'Help me create a Vue composable', prompt: 'Help me create a Vue composable for managing local state' },
-  { icon: 'i-simple-icons-unjs', label: 'Tell me more about UnJS', prompt: 'Tell me more about UnJS' },
-  { icon: 'i-simple-icons-vueuse', label: 'Why should I consider VueUse?', prompt: 'Why should I consider VueUse?' },
-  { icon: 'i-simple-icons-tailwindcss', label: 'Tailwind CSS best practices', prompt: 'What are the best practices when using Tailwind CSS?' },
+  { icon: 'i-logos-nuxt-icon', label: 'Why use Nuxt UI?', prompt: 'Why should I use Nuxt UI for my project?' },
+  { icon: 'i-logos-vue', label: 'Help me create a Vue composable', prompt: 'Help me create a Vue composable for managing local state' },
+  { icon: 'i-logos-unjs', label: 'Tell me more about UnJS', prompt: 'Tell me more about UnJS' },
+  { icon: 'i-logos-vueuse', label: 'Why should I consider VueUse?', prompt: 'Why should I consider VueUse?' },
+  { icon: 'i-logos-tailwindcss-icon', label: 'Tailwind CSS best practices', prompt: 'What are the best practices when using Tailwind CSS?' },
   { icon: 'i-lucide-sun', label: 'What is the weather in Bordeaux?', prompt: 'What is the weather like in Bordeaux right now?' },
   { icon: 'i-lucide-line-chart', label: 'Show me a chart of sales data', prompt: 'Show me a sample bar chart of monthly sales data' },
 ]
@@ -59,14 +59,14 @@ function onKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center h-full px-6 pb-8">
+  <div class="flex flex-col items-center justify-center h-full px-4 sm:px-6 pb-8">
     <!-- Heading -->
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center shrink-0">
       How can I help you today?
     </h1>
 
     <!-- Input box (matches reference exactly) -->
-    <div class="w-full max-w-[600px]">
+    <div class="w-full max-w-[720px] flex flex-col gap-4">
       <div class="rounded-xl border border-gray-200 dark:border-white/15 bg-white dark:bg-[#27272a] overflow-hidden shadow-xs">
         
         <!-- Context files preview display -->
@@ -124,15 +124,17 @@ function onKeydown(e: KeyboardEvent) {
       </div>
 
       <!-- Suggestion pills -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
+        <USkeleton v-if="loading" class="h-8 w-full max-w-[400px] bg-transparent" />
         <button
+          v-else
           v-for="s in suggestions"
           :key="s.label"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 ring-1 ring-gray-200 dark:ring-white/15 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 hover:ring-gray-300 transition-all"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-medium text-gray-700 dark:text-gray-300 ring-1 ring-gray-200 dark:ring-white/15 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 transition-all"
           :disabled="loading"
           @click="startChat(s.prompt)"
         >
-          <UIcon :name="s.icon" class="w-3.5 h-3.5 shrink-0" />
+          <UIcon :name="s.icon" class="w-4 h-4 shrink-0" />
           {{ s.label }}
         </button>
       </div>
