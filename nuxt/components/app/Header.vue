@@ -154,6 +154,11 @@ const items = [
     ]
   },
   {
+    label: 'AI Chat',
+    icon: 'i-lucide-bot',
+    to: '/chat',
+  },
+  {
     label: 'GitHub',
     icon: 'i-simple-icons-github',
     to: 'https://github.com/k2so-dev/laravel-nuxt',

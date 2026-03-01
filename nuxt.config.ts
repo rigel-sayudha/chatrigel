@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     server: {
       allowedHosts: ["localhost", "127.0.0.1"],
     },
+    optimizeDeps: {
+      include: ['@vercel/oidc']
+    }
   },
 
   /**
@@ -45,7 +48,8 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    'auth/verify': { ssr: false }
+    'auth/verify': { ssr: false },
+    'chat/**': { ssr: false }
   },
 
   css: ['~/assets/css/main.css'],
@@ -59,7 +63,23 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'dayjs-nuxt',
     'nuxt-security',
+    '@nuxtjs/mdc',
   ],
+
+  mdc: {
+    headings: {
+      anchorLinks: false,
+    },
+    highlight: {
+      shikiEngine: 'javascript',
+    },
+  },
+
+  nitro: {
+    experimental: {
+      openAPI: true,
+    },
+  },
 
   image: {
     domains: [
@@ -96,6 +116,7 @@ export default defineNuxtConfig({
    */
   runtimeConfig: {
     apiLocal: import.meta.env.API_LOCAL_URL,
+    aiGatewayKey: import.meta.env.AI_GATEWAY_API_KEY || '',
     public: {
       authGuard: import.meta.env.AUTH_GUARD,
       apiBase: import.meta.env.APP_URL,
@@ -111,4 +132,5 @@ export default defineNuxtConfig({
       },
     },
   },
+
 })
