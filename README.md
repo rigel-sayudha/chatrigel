@@ -3,17 +3,17 @@
     <img src="./screenshot-dark.png" alt="Tangkapan Layar AI Chatbot ChatRigel" width="800">
 </p>
 
-# ChatRigel AI Assistant (Laravel + Nuxt 3)
+# ChatRigel AI Chat Built with Laravel + Nuxt 3
 
-Membangun fondasi chatbot AI modern dan _full-stack_ yang terintegrasi erat dengan *boilerplate* Laravel dan Nuxt 3. Dibangun dengan memanfaatkan kecanggihan **Vercel AI SDK** untuk mengelola aliran dinamis (_streaming_), memproses lampiran konteks multi-berkas, serta memicu pemanggilan alat (Tool-Calling) yang divisualisasikan secara menawan dalam wujud Komponen Vue.
+Chatbot AI modern dan _full-stack_ yang terintegrasi erat dengan *boilerplate* Laravel dan Nuxt 3. Dibangun dengan memanfaatkan **Vercel AI SDK** untuk mengelola flow dinamis (_streaming_), memproses lampiran konteks multi-file, serta Tool Calling yang divisualisasikan menggunakan Komponen Vue.
 
 ## ✨ Fitur Utama
-- **Estetika Nuxt UI Template Asli**: Aplikasi ini secara mulus menduplikasi tata letak resmi Nuxt UI Chat, menghadirkan *input box* elegan, *toggle* pemilihan model AI, cip sugesti beranimasi, dan tipografi logo sidebar yang serasi.
-- **Pemilihan Model Otomatis**: Ganti model AI kelas industri pilihan Anda secara instan dari *dropdown* antarmuka (GPT-4o, Claude 3.5 Haiku, Gemini 2.0 Flash) tanpa harus kehilangan riwayat percakapan.
-- **Lampiran Konteks Multi-Berkas**: Unggah beragam batasan berkas langsung melalui ikon penjepit kertas (*paperclip*) untuk kebutuhan pemrosesan perintah canggih (Multimodal prompt).
-- **Tool Calling Dinamis**: AI mampu secara otonom menyuntikkan Visual UI Component kaya fitur tepat di dalam barisan obrolan (Contoh standar bawaan: _Widget_ Cuaca Langsung & Bagan Interaktif).
+- **Built with Laravel + Nuxt**: Menghadirkan *input box* , *toggle* berbagai model AI, dan tipografi logo sidebar.
+- **Pemilihan Model**: Ganti model AI class dari *dropdown* antarmuka (GPT-4o, Claude 3.5 Haiku, Gemini 2.0 Flash) tanpa harus kehilangan riwayat percakapan.
+- **Lampiran Konteks Multi-File**: Unggah beragam batasan berkas langsung melalui ikon paperclip untuk kebutuhan pemrosesan perintah.
+- **Tool Calling Dinamis**: AI mampu secara Visual UI Component kaya fitur tepat di dalam barisan obrolan.
 - **Judul Terbuat Otomatis**: Secara otomatis merangkum perintah pertama dari pesan Anda untuk menjadi label deskriptif di riwayat *sidebar*.
-- **API Server Nitro**: Menggunakan Endpoint khusus dan cepat untuk mengelola rekam memori berbantuan SQLite dan Drizzle ORM. Tidak butuh konfigurasi layanan DB pihak ketiga.
+- **API Server Nitro**: Menggunakan Endpoint khusus dan cepat untuk mengelola rekam memori berbantuan SQLite dan Drizzle ORM.
 
 ---
 
