@@ -96,10 +96,14 @@ async function deleteChat(id: string) {
         </div>
 
         <!-- Footer -->
-        <div class="p-2 border-t border-gray-200/70 dark:border-white/10">
+        <div class="p-2 border-t border-gray-200/70 dark:border-white/10 space-y-0.5">
           <button class="flex items-center gap-2 w-full px-2 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-white/60 dark:hover:bg-white/5 transition-colors">
             <UIcon name="i-simple-icons-github" class="w-4 h-4 shrink-0" />
             <span>Login with GitHub</span>
+          </button>
+          <button class="flex items-center gap-2 w-full px-2 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-white/60 dark:hover:bg-white/5 transition-colors">
+            <UIcon name="i-simple-icons-google" class="w-4 h-4 shrink-0 text-red-500" />
+            <span>Login with Google</span>
           </button>
         </div>
       </div>
