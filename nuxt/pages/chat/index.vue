@@ -44,8 +44,6 @@ async function startChat(prompt?: string) {
   loading.value = true
   try {
     const chat = await $fetch<{ id: string }>('/api/chats', { method: 'POST' })
-    // Currently, we don't pass files through the router to avoid URL bloat.
-    // The query string supports passing the initial message string to [id].vue
     await router.push({ path: `/chat/${chat.id}`, query: { message: msg, model: selectedModel.value.value } })
   } catch {
     toast.add({ title: 'Error', description: 'Failed to start chat.', color: 'error' })
@@ -59,84 +57,97 @@ function onKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center h-full px-4 sm:px-6 pb-8">
-    <!-- Heading -->
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center shrink-0">
-      How can I help you today?
-    </h1>
+  <UDashboardPanel
+    id="home"
+    class="min-h-0"
+    :ui="{ body: 'p-0 sm:p-0' }"
+  >
+    <template #header>
+      <UDashboardNavbar class="border-b-0">
+        <template #right>
+          <AppTheme />
+        </template>
+      </UDashboardNavbar>
+    </template>
 
-    <!-- Input box (matches reference exactly) -->
-    <div class="w-full max-w-[720px] flex flex-col gap-4">
-      <div class="rounded-[20px] ring-1 ring-inset ring-gray-200 dark:ring-gray-800 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-900 focus-within:bg-white focus-within:dark:bg-gray-900 focus-within:ring-2 focus-within:ring-primary-500 dark:focus-within:ring-primary-400 transition-all shadow-sm">
-        
-        <!-- Context files preview display -->
-        <div v-if="selectedFiles.length > 0" class="flex flex-wrap gap-2 px-4 pt-3 pb-1">
-          <div v-for="(file, index) in selectedFiles" :key="index" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 max-w-[200px]">
-            <UIcon name="i-lucide-file-text" class="w-3.5 h-3.5 text-gray-500 shrink-0" />
-            <span class="text-xs truncate text-gray-700 dark:text-gray-300">{{ file.name }}</span>
-            <button type="button" @click="removeFile(index)" class="shrink-0 p-0.5 mt-0.5 rounded text-gray-400 hover:text-red-500 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
-              <UIcon name="i-lucide-x" class="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
+    <template #body>
+      <UContainer class="flex-1 flex flex-col justify-center gap-4 sm:gap-6 py-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-highlighted">
+          How can I help you today?
+        </h1>
 
-        <!-- Textarea row -->
-        <textarea
+        <UChatPrompt
           v-model="input"
-          rows="2"
-          placeholder="Type your message here..."
-          class="w-full px-4 pt-4 pb-2 text-[15px] text-gray-900 dark:text-white bg-transparent resize-none outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 leading-relaxed"
-          :disabled="loading"
-          @keydown="onKeydown"
-        />
-        <!-- Toolbar row -->
-        <div class="flex items-center gap-2 px-3 pb-3 pt-1">
-          <!-- Paperclip -->
-          <input type="file" multiple ref="fileInput" class="hidden" @change="handleFileChange" />
-          <button @click="fileInput?.click()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-            <UIcon name="i-lucide-paperclip" class="w-4 h-4" />
-          </button>
-          <!-- Model selector -->
-          <UDropdownMenu
-            :items="models.map(m => ({ label: m.label, icon: m.icon, click: () => selectedModel = m }))"
-            :content="{ side: 'top', align: 'start' }"
-          >
-            <button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-              <UIcon :name="selectedModel.icon" class="w-4 h-4" />
-              {{ selectedModel.label }}
-              <UIcon name="i-lucide-chevron-down" class="w-3.5 h-3.5 opacity-60" />
-            </button>
-          </UDropdownMenu>
-          <div class="flex-1" />
-          <button
-            class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors shadow-sm"
-            :class="(input.trim() || selectedFiles.length > 0) && !loading
-              ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-white'
-              : 'bg-gray-100 dark:bg-white/10 text-gray-400 cursor-not-allowed'"
-            :disabled="(!input.trim() && selectedFiles.length === 0) || loading"
-            @click="startChat()"
-          >
-            <UIcon v-if="loading" name="i-lucide-loader-2" class="w-4 h-4 animate-spin" />
-            <UIcon v-else name="i-lucide-arrow-up" class="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-
-      <!-- Suggestion pills -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
-        <USkeleton v-if="loading" class="h-8 w-full max-w-[400px] bg-transparent" />
-        <button
-          v-else
-          v-for="s in suggestions"
-          :key="s.label"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-medium text-gray-700 dark:text-gray-300 ring-1 ring-gray-200 dark:ring-white/15 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 transition-all"
-          :disabled="loading"
-          @click="startChat(s.prompt)"
+          :status="loading ? 'streaming' : 'ready'"
+          variant="subtle"
+          class="[view-transition-name:chat-prompt]"
+          :ui="{ base: 'px-1.5' }"
+          @submit="startChat()"
         >
-          <UIcon :name="s.icon" class="w-4 h-4 shrink-0" />
-          {{ s.label }}
-        </button>
-      </div>
-    </div>
-  </div>
+          <!-- File preview header -->
+          <template v-if="selectedFiles.length > 0" #header>
+            <div class="flex flex-wrap gap-2">
+              <div v-for="(file, index) in selectedFiles" :key="index" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[var(--ui-bg-elevated)] border border-[var(--ui-border)] max-w-[200px]">
+                <UIcon name="i-lucide-file-text" class="w-3.5 h-3.5 text-[var(--ui-text-muted)] shrink-0" />
+                <span class="text-xs truncate text-[var(--ui-text-toned)]">{{ file.name }}</span>
+                <UButton icon="i-lucide-x" color="neutral" variant="ghost" size="xs" class="p-0.5" @click="removeFile(index)" />
+              </div>
+            </div>
+          </template>
+
+          <!-- Toolbar footer -->
+          <template #footer>
+            <div class="flex items-center gap-1">
+              <!-- File upload -->
+              <input type="file" multiple ref="fileInput" class="hidden" @change="handleFileChange" />
+              <UButton
+                icon="i-lucide-paperclip"
+                color="neutral"
+                variant="ghost"
+                size="sm"
+                @click="fileInput?.click()"
+              />
+
+              <!-- Model selector -->
+              <UDropdownMenu
+                :items="models.map(m => ({ label: m.label, icon: m.icon, click: () => selectedModel = m }))"
+                :content="{ side: 'top', align: 'start' }"
+              >
+                <UButton
+                  color="neutral"
+                  variant="ghost"
+                  size="sm"
+                  :icon="selectedModel.icon"
+                  :label="selectedModel.label"
+                  trailing-icon="i-lucide-chevron-down"
+                />
+              </UDropdownMenu>
+            </div>
+
+            <UChatPromptSubmit
+              color="neutral"
+              size="sm"
+              :disabled="!input.trim() && selectedFiles.length === 0"
+            />
+          </template>
+        </UChatPrompt>
+
+        <!-- Suggestion chips -->
+        <div class="flex flex-wrap gap-2">
+          <UButton
+            v-for="s in suggestions"
+            :key="s.label"
+            :icon="s.icon"
+            :label="s.label"
+            size="sm"
+            color="neutral"
+            variant="outline"
+            class="rounded-full"
+            :disabled="loading"
+            @click="startChat(s.prompt)"
+          />
+        </div>
+      </UContainer>
+    </template>
+  </UDashboardPanel>
 </template>
