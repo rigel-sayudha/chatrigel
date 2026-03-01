@@ -1,5 +1,6 @@
 <p align="center">
   <img src="./screenshot.png" alt="Tangkapan Layar AI Chatbot ChatRigel" width="800">
+    <img src="./screenshot-dark.png" alt="Tangkapan Layar AI Chatbot ChatRigel" width="800">
 </p>
 
 # ChatRigel AI Assistant (Laravel + Nuxt 3)
