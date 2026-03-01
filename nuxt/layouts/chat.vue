@@ -115,6 +115,11 @@ async function deleteChat(id: string) {
         >
           <UIcon name="i-lucide-panel-left" class="w-4 h-4" />
         </button>
+        <!-- Title bar icon -->
+        <div class="flex items-center gap-1.5 ml-2 font-bold text-[15px] text-gray-900 dark:text-white" v-if="sidebarCollapsed">
+          <UIcon name="i-lucide-bot" class="w-5 h-5 text-primary-500 shrink-0" />
+          <span>Chat<span class="text-primary-500">Rigel</span></span>
+        </div>
         <div class="flex-1" />
         <AppTheme />
       </div>
