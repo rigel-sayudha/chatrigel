@@ -161,7 +161,7 @@ const items = [
   {
     label: 'GitHub',
     icon: 'i-simple-icons-github',
-    to: 'https://github.com/k2so-dev/laravel-nuxt',
+    to: 'https://github.com/rigel-sayudha/chatrigel',
     target: '_blank'
   },
   {
