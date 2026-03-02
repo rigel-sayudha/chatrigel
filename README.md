@@ -60,4 +60,4 @@ npm run dev
 bun dev
 ```
 
-Kunjungi **[http://localhost:3000](http://localhost:3000)** pada tab peramban/browser Anda. Layar obrolan utama ChatRigel siap bertugas merespons setiap sapaan! 🤖
+Kunjungi **[http://localhost:3000](http://localhost:3000)** pada browser Anda.
