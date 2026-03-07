@@ -7,7 +7,7 @@
 
 Chatbot AI modern dan _full-stack_ yang terintegrasi erat dengan *boilerplate* Laravel dan Nuxt 3. Dibangun dengan memanfaatkan **Vercel AI SDK** untuk mengelola flow dinamis (_streaming_), memproses lampiran konteks multi-file, serta Tool Calling yang divisualisasikan menggunakan Komponen Vue.
 
-## ✨ Fitur Utama
+##  Fitur Utama
 - **Built with Laravel + Nuxt**: Menghadirkan *input box* , *toggle* berbagai model AI, dan tipografi logo sidebar.
 - **Pemilihan Model**: Ganti model AI class dari *dropdown* antarmuka (GPT-4o, Claude 3.5 Haiku, Gemini 2.0 Flash) tanpa harus kehilangan riwayat percakapan.
 - **Lampiran Konteks Multi-File**: Unggah beragam batasan berkas langsung melalui ikon paperclip untuk kebutuhan pemrosesan perintah.
